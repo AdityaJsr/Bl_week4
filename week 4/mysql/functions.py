@@ -78,7 +78,23 @@ def useRevFun():
     for x in mycursor:
         print(x)
 
+def createFunBin():
 
+    mycursor.execute("""
+        CREATE FUNCTION binID(personID INT(10) UNSIGNED)
+        RETURNS INT(10) DETERMINISTIC
+        RETURN BIN(personID)
+    """)
+def useBinID():
+    mycursor.execute("""
+        SELECT first_name,personID,binID(personID)AS BID
+        FROM people
+    """)
+    for x in mycursor:
+        name = x[0]
+        id = x[1]
+        binId = x[2]
+        print('Name = ', name,'I.D = ', id,'BinaryID = ', binId)
 
 def main():
     # addRecord()
@@ -87,7 +103,9 @@ def main():
     # useCreateFun()
     # describeTable()
     # revFun()
-    useRevFun()
+    # useRevFun()
+    # createFunBin()
+    # useBinID()
 
 if __name__ == "__main__":
     main()
