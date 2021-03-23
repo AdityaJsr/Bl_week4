@@ -60,12 +60,34 @@ def describeTable():
     for items in mycursor:
         print(items)
 
+def revFun():
+    mycursor.execute("""
+        CREATE FUNCTION rev_name(first_name CHAR(30))
+        RETURNS CHAR(30) DETERMINISTIC
+        RETURN REVERSE(first_name)
+    """)
+    # mycursor.execute("""
+    # DROP FUNCTION rev_name
+    # """)
+
+def useRevFun():
+    mycursor.execute("""
+        SELECT rev_name(first_name) AS RF_name
+        FROM people
+    """)
+    for x in mycursor:
+        print(x)
+
+
+
 def main():
     # addRecord()
     # showDb()
     # createFun()
     # useCreateFun()
     # describeTable()
+    # revFun()
+    useRevFun()
 
 if __name__ == "__main__":
     main()
